@@ -1,0 +1,156 @@
+from math import sin, cos
+import matplotlib.pyplot as plt
+from datetime import datetime
+# Used to show output on a new(Tkinter) window
+%matplotlib tk
+
+
+fig, ax = plt.subplots()  # creating a figure and Axis to work with
+
+sap1 = (248, 250)  # sap = second arrow points(will also be used for minutes and hours)
+sap2 = (255, 250)
+sap3 = (255, 420)
+sap4 = (248, 420)
+sap5 = sap1
+sp = (250, 250)  # sp = starting point(origin)
+
+tdp1 = (250, 430)  # tdp = time direction points( will also be used for small and medium deriction point)
+tdp2 = (250, 490)
+
+plt.ion()  # enabling interactive mode
+plt.show()  # showing the figure
+
+'''A function for rotation was modified to rotate an object around defied starting point and not O axis (for reference: [3])'''
+
+def saprotation(angle):  # function designed to rotate a second arrow from a starting point
+    angle = float(-(angle * 0.006) * (3.14159265359 / 180))  # converting degrees to radians in changing it's sign to move it clockwise
+
+    x1 = sp[0] + (sap1[0] - sp[0]) * cos(angle) - (sap1[1] - sp[1]) * sin(angle)
+    y1 = sp[1] + (sap1[0] - sp[0]) * sin(angle) + (sap1[1] - sp[1]) * cos(angle)
+    x2 = sp[0] + (sap2[0] - sp[0]) * cos(angle) - (sap2[1] - sp[1]) * sin(angle)
+    y2 = sp[1] + (sap2[0] - sp[0]) * sin(angle) + (sap2[1] - sp[1]) * cos(angle)
+    x3 = sp[0] + (sap3[0] - sp[0]) * cos(angle) - (sap3[1] - sp[1]) * sin(angle)
+    y3 = sp[1] + (sap3[0] - sp[0]) * sin(angle) + (sap3[1] - sp[1]) * cos(angle)
+    x4 = sp[0] + (sap4[0] - sp[0]) * cos(angle) - (sap4[1] - sp[1]) * sin(angle)
+    y4 = sp[1] + (sap4[0] - sp[0]) * sin(angle) + (sap4[1] - sp[1]) * cos(angle)
+    x5 = x1
+    y5 = y1
+
+    x5 = [x1, x2, x3, x4, x5]
+    y5 = [y1, y2, y3, y4, y5]
+    second_arrow = [x5, y5]
+    return second_arrow  # instead of plotting the coordinates they will be saved
+
+
+def maprotation(angle):  # minute arrow
+
+    angle = float(-(angle * 0.1) * (3.14159265359 / 180))
+
+    x1 = sp[0] + ((sap1[0] - 2) - sp[0]) * cos(angle) - (sap1[1] - sp[1]) * sin(angle)
+    y1 = sp[1] + ((sap1[0] - 2) - sp[0]) * sin(angle) + (sap1[1] - sp[1]) * cos(angle)
+    x2 = sp[0] + (sap2[0] - sp[0]) * cos(angle) - (sap2[1] - sp[1]) * sin(angle)
+    y2 = sp[1] + (sap2[0] - sp[0]) * sin(angle) + (sap2[1] - sp[1]) * cos(angle)
+    x3 = sp[0] + (sap3[0] - sp[0]) * cos(angle) - ((sap3[1] - 30) - sp[1]) * sin(angle)
+    y3 = sp[1] + (sap3[0] - sp[0]) * sin(angle) + ((sap3[1] - 30) - sp[1]) * cos(angle)
+    x4 = sp[0] + ((sap4[0] - 2) - sp[0]) * cos(angle) - ((sap4[1] - 30) - sp[1]) * sin(angle)
+    y4 = sp[1] + ((sap4[0] - 2) - sp[0]) * sin(angle) + ((sap4[1] - 30) - sp[1]) * cos(angle)
+    x5 = x1
+    y5 = y1
+
+    x5 = [x1, x2, x3, x4, x5]
+    y5 = [y1, y2, y3, y4, y5]
+    minute_arrow = [x5, y5]
+    return minute_arrow
+
+
+def haprotation(angle):  # hour arrow
+
+    angle = float(-(angle * 0.5) * (3.14159265359 / 180))
+
+    x1 = sp[0] + ((sap1[0] - 3) - sp[0]) * cos(angle) - (sap1[1] - sp[1]) * sin(angle)
+    y1 = sp[1] + ((sap1[0] - 3) - sp[0]) * sin(angle) + (sap1[1] - sp[1]) * cos(angle)
+    x2 = sp[0] + (sap2[0] - sp[0]) * cos(angle) - (sap2[1] - sp[1]) * sin(angle)
+    y2 = sp[1] + (sap2[0] - sp[0]) * sin(angle) + (sap2[1] - sp[1]) * cos(angle)
+    x3 = sp[0] + (sap3[0] - sp[0]) * cos(angle) - ((sap3[1] - 70) - sp[1]) * sin(angle)
+    y3 = sp[1] + (sap3[0] - sp[0]) * sin(angle) + ((sap3[1] - 70) - sp[1]) * cos(angle)
+    x4 = sp[0] + ((sap4[0] - 3) - sp[0]) * cos(angle) - ((sap4[1] - 70) - sp[1]) * sin(angle)
+    y4 = sp[1] + ((sap4[0] - 3) - sp[0]) * sin(angle) + ((sap4[1] - 70) - sp[1]) * cos(angle)
+    x5 = x1
+    y5 = y1
+
+    x5 = [x1, x2, x3, x4, x5]
+    y5 = [y1, y2, y3, y4, y5]
+    hour_arrow = [x5, y5]
+    return hour_arrow
+
+def tdashow(angle): #function to show tda according to its angle (for every 30 minutes)
+    angle = float(angle * (3.14159265359 / 180))
+    x1 = sp[0] + (tdp1[0] - sp[0]) * cos(angle) - (tdp1[1] - sp[1]) * sin(angle)
+    y1 = sp[1] + (tdp1[0] - sp[0]) * sin(angle) + (tdp1[1] - sp[1]) * cos(angle)
+    x2 = sp[0] + (tdp2[0] - sp[0]) * cos(angle) - (tdp2[1] - sp[1]) * sin(angle)
+    y2 = sp[1] + (tdp2[0] - sp[0]) * sin(angle) + (tdp2[1] - sp[1]) * cos(angle)
+
+    x = [x1, x2]
+    y = [y1, y2]
+    plt.plot(x, y, "black")
+
+
+def mtdashow(angle): #medium lines (for 5 minutes)
+    angle = float(angle * (3.14159265359 / 180))  
+    x1 = sp[0] + (tdp1[0] - sp[0]) * cos(angle) - (tdp1[1] - sp[1]) * sin(angle)
+    y1 = sp[1] + (tdp1[0] - sp[0]) * sin(angle) + (tdp1[1] - sp[1]) * cos(angle)
+    x2 = sp[0] + (tdp2[0] - sp[0]) * cos(angle) - (tdp2[1] - 30 - sp[1]) * sin(angle)
+    y2 = sp[1] + (tdp2[0] - sp[0]) * sin(angle) + (tdp2[1] - 30 - sp[1]) * cos(angle)
+
+    x = [x1, x2]
+    y = [y1, y2]
+    plt.plot(x, y, "grey")
+
+def stdashow(angle): #small lines (for every minute)
+    angle = float(angle * (3.14159265359 / 180))
+    x1 = sp[0] + (tdp1[0] - sp[0]) * cos(angle) - (tdp1[1] - sp[1]) * sin(angle)
+    y1 = sp[1] + (tdp1[0] - sp[0]) * sin(angle) + (tdp1[1] - sp[1]) * cos(angle)
+    x2 = sp[0] + (tdp2[0] - sp[0]) * cos(angle) - (tdp2[1] - 50 - sp[1]) * sin(angle)
+    y2 = sp[1] + (tdp2[0] - sp[0]) * sin(angle) + (tdp2[1] - 50 - sp[1]) * cos(angle)
+
+    x = [x1, x2]
+    y = [y1, y2]
+    plt.plot(x, y, "grey")
+
+for i in range(60): #def
+    if i % 5 == 0:
+        if i % 15 == 0:
+            tdashow(90 * i)
+        else:
+            mtdashow(30 * i)
+    else:
+        stdashow(6 * i)
+
+ax.set(xlim=(0, 500), xlabel='@Ohmanitsme')
+ax.set(ylim=(0, 500), ylabel='Real-Time Clock made by Rustam Rahimov')
+ax.set_aspect('equal')
+try:
+    while True:
+        circle = plt.Circle((250, 250), 4, facecolor="black", edgecolor="black")
+        ax.add_patch(circle)
+        currentMillisecond = datetime.now().microsecond / 1000
+        currentSecond = datetime.now().second
+        currentMinute = datetime.now().minute
+        currentHour = datetime.now().hour
+        if currentHour >= 12:
+            currentHour = currentHour - 12
+        PreciseSecond = (currentSecond * 1000) + currentMillisecond
+        PreciseMinute = currentSecond + (currentMinute * 60)
+        PreciseHour = currentMinute + currentHour * 60
+        sa = saprotation(PreciseSecond)
+        ma = maprotation(PreciseMinute)
+        ha = haprotation(PreciseHour)
+        s = plt.plot(sa[0], sa[1], color="grey")
+        m = plt.plot(ma[0], ma[1], color="orange")
+        h = plt.plot(ha[0], ha[1], color="blue")
+        plt.pause(0.1)
+        s.pop().remove()
+        m.pop().remove()
+        h.pop().remove()
+except:
+    print("The function has an error/was destroyed!")
